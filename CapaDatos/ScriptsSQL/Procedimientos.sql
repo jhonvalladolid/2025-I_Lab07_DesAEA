@@ -1,4 +1,5 @@
 USE Lab07DB;
+GO
 
 CREATE OR ALTER PROC USP_ListarCustomers
 AS
@@ -10,8 +11,8 @@ BEGIN
         phone
     FROM customers
     WHERE active = 1
-END
-
+END;
+GO
 
 CREATE OR ALTER PROC USP_ListarProducts
 AS
@@ -23,8 +24,8 @@ BEGIN
         stock
     FROM products
     WHERE active = 1
-END
-
+END;
+GO
 
 CREATE OR ALTER PROCEDURE USP_InsertarProducto
     @name NVARCHAR(255),
@@ -34,4 +35,5 @@ AS
 BEGIN
     INSERT INTO products (name, price, stock, active)
     VALUES (@name, @price, @stock, 1)
-END
+END;
+GO
