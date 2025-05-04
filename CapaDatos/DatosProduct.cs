@@ -11,7 +11,9 @@ namespace CapaDatos
 {
     public class DatosProduct
     {
-        private readonly string connectionString = "Data Source=LAB411-003\\SQLEXPRESS;Initial Catalog=Lab07DB;User ID=userJhon;Password=Tecsup00;TrustServerCertificate=True;";
+        private readonly string connectionString = "Data Source=LAPTOP-DELL;Initial Catalog=Lab07DB;User ID=userJhon;Password=Tecsup00;TrustServerCertificate=True;";
+        //private readonly string connectionString = "Data Source=LAB411-005\\SQLEXPRESS;Initial Catalog=Lab07DB;Integrated Security=True;TrustServerCertificate=True";
+        //private readonly string connectionString = "Data Source=LAB411-003\\SQLEXPRESS;Initial Catalog=Lab07DB;User ID=userJhon;Password=Tecsup00;TrustServerCertificate=True;";
 
         public List<EntidadProduct> ObtenerProducts()
         {
