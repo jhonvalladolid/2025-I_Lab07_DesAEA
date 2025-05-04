@@ -14,4 +14,8 @@
     <ProjectReference Include="..\CapaEntidad\CapaEntidad.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="ScriptsSQL\" />
+  </ItemGroup>
+
 </Project>
