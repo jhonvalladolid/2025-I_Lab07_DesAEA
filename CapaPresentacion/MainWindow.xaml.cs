@@ -46,15 +46,17 @@ namespace CapaPresentacion
             }
             else
             {
-                nuevos = negocio.ObtenerProductosPorNombre(filtroActual);
-                productos.Clear(); // cuando es búsqueda, reiniciar
+                nuevos = negocio.BuscarProductosPaginado(filtroActual, page, pageSize);
             }
 
-            productos.AddRange(nuevos);
-            dgProductos.ItemsSource = null;
-            dgProductos.ItemsSource = productos;
+            if (nuevos.Any())
+            {
+                productos.AddRange(nuevos);
+                dgProductos.ItemsSource = null;
+                dgProductos.ItemsSource = productos;
+                currentPage++;
+            }
 
-            currentPage++;
             isLoading = false;
         }
 
@@ -111,6 +113,14 @@ namespace CapaPresentacion
                 txtBuscar.Text = "Ingrese nombre";
                 txtBuscar.Foreground = Brushes.Gray;
             }
+        }
+
+        private void txtBuscar_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            filtroActual = txtBuscar.Text.Trim();
+            currentPage = 1;
+            productos.Clear();
+            CargarPagina(currentPage);
         }
     }
 }

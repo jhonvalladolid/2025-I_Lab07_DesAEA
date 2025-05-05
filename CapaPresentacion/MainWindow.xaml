@@ -20,7 +20,8 @@
                      Foreground="Gray"
                      GotFocus="txtBuscar_GotFocus"
                      LostFocus="txtBuscar_LostFocus"
-                     Margin="0 0 10 0"/>
+                     Margin="0 0 10 0"
+                     TextChanged="txtBuscar_TextChanged"/>
             <Button Content="Buscar"
                     Width="100"
                     Margin="0 0 10 0"
@@ -30,19 +31,17 @@
                     Click="BtnRegistrarProducto_Click"/>
         </StackPanel>
 
-        <ScrollViewer VerticalScrollBarVisibility="Auto" Grid.Row="1">
-            <DataGrid x:Name="dgProductos"
-                      AutoGenerateColumns="False"
-                      IsReadOnly="True"
-                      Height="350"
-                      ScrollViewer.ScrollChanged="dgProductos_ScrollChanged">
-                <DataGrid.Columns>
-                    <DataGridTextColumn Header="ProductId" Binding="{Binding ProductId}" />
-                    <DataGridTextColumn Header="Name" Binding="{Binding Name}" />
-                    <DataGridTextColumn Header="Price" Binding="{Binding Price}" />
-                    <DataGridTextColumn Header="Stock" Binding="{Binding Stock}" />
-                </DataGrid.Columns>
-            </DataGrid>
-        </ScrollViewer>
+        <DataGrid x:Name="dgProductos"
+                  Grid.Row="1"
+                  AutoGenerateColumns="False"
+                  IsReadOnly="True"
+                  ScrollViewer.ScrollChanged="dgProductos_ScrollChanged">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="ProductId" Binding="{Binding ProductId}" />
+                <DataGridTextColumn Header="Name" Binding="{Binding Name}" />
+                <DataGridTextColumn Header="Price" Binding="{Binding Price}" />
+                <DataGridTextColumn Header="Stock" Binding="{Binding Stock}" />
+            </DataGrid.Columns>
+        </DataGrid>
     </Grid>
 </Window>

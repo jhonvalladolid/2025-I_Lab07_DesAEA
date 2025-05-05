@@ -69,6 +69,35 @@ namespace CapaDatos
             return lista;
         }
 
+        public List<EntidadProduct> BuscarProductosPaginado(string nombre, int page, int pageSize)
+        {
+            var lista = new List<EntidadProduct>();
+
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            using (SqlCommand cmd = new SqlCommand("USP_ListarProductosPaginadoFiltrado", conn))
+            {
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@Nombre", nombre);
+                cmd.Parameters.AddWithValue("@Page", page);
+                cmd.Parameters.AddWithValue("@PageSize", pageSize);
+
+                conn.Open();
+                SqlDataReader reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    lista.Add(new EntidadProduct
+                    {
+                        ProductId = reader.GetInt32(0),
+                        Name = reader.GetString(1),
+                        Price = reader.GetDecimal(2),
+                        Stock = reader.GetInt32(3)
+                    });
+                }
+            }
+
+            return lista;
+        }
+
         public void RegistrarProducto(EntidadProduct producto)
         {
             using (SqlConnection conn = new SqlConnection(connectionString))

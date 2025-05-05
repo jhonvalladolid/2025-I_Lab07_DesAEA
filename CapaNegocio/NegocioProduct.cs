@@ -34,6 +34,12 @@ namespace CapaNegocio
             return datos.ObtenerProductsPaginado(page, pageSize);
         }
 
+        public List<EntidadProduct> BuscarProductosPaginado(string nombre, int page, int pageSize)
+        {
+            DatosProduct datos = new DatosProduct();
+            return datos.BuscarProductosPaginado(nombre, page, pageSize);
+        }
+
         public void RegistrarProducto(EntidadProduct producto)
         {
             DatosProduct datos = new DatosProduct();
