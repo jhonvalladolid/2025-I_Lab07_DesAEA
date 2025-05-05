@@ -37,3 +37,45 @@ BEGIN
     VALUES (@name, @price, @stock, 1)
 END;
 GO
+
+
+CREATE OR ALTER PROCEDURE USP_ListarProductosPaginado
+    @Page INT,
+    @PageSize INT
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    SELECT 
+        product_id,
+        name,
+        price,
+        stock
+    FROM products
+    WHERE active = 1
+    ORDER BY product_id
+    OFFSET (@Page - 1) * @PageSize ROWS
+    FETCH NEXT @PageSize ROWS ONLY;
+END;
+GO
+
+CREATE OR ALTER PROCEDURE USP_ListarProductosPaginadoFiltrado
+    @Nombre NVARCHAR(255),
+    @Page INT,
+    @PageSize INT
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    SELECT 
+        product_id,
+        name,
+        price,
+        stock
+    FROM products
+    WHERE active = 1 AND name LIKE '%' + @Nombre + '%'
+    ORDER BY product_id
+    OFFSET (@Page - 1) * @PageSize ROWS
+    FETCH NEXT @PageSize ROWS ONLY;
+END;
+GO

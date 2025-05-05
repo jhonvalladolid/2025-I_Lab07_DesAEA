@@ -19,33 +19,59 @@ namespace CapaPresentacion
     public partial class MainWindow : Window
     {
         private NegocioProduct negocio = new NegocioProduct();
+        private int currentPage = 1;
+        private int pageSize = 50;
+        private bool isLoading = false;
+        private string filtroActual = "";
+
+        private List<EntidadProduct> productos = new List<EntidadProduct>();
 
         public MainWindow()
         {
             InitializeComponent();
             txtBuscar.Text = "Ingrese nombre";
             txtBuscar.Foreground = Brushes.Gray;
-            CargarTodos();
+            CargarPagina(1);
         }
 
-        private void CargarTodos()
+        private void CargarPagina(int page)
         {
-            List<EntidadProduct> productos = negocio.ObtenerProductos();
+            if (isLoading) return;
+            isLoading = true;
+
+            List<EntidadProduct> nuevos;
+            if (string.IsNullOrWhiteSpace(filtroActual))
+            {
+                nuevos = negocio.ObtenerProductosPaginado(page, pageSize);
+            }
+            else
+            {
+                nuevos = negocio.ObtenerProductosPorNombre(filtroActual);
+                productos.Clear(); // cuando es búsqueda, reiniciar
+            }
+
+            productos.AddRange(nuevos);
+            dgProductos.ItemsSource = null;
             dgProductos.ItemsSource = productos;
+
+            currentPage++;
+            isLoading = false;
         }
 
         private void BtnBuscar_Click(object sender, RoutedEventArgs e)
         {
-            string nombre = txtBuscar.Text.Trim();
+            filtroActual = txtBuscar.Text.Trim();
+            currentPage = 1;
+            productos.Clear();
 
-            if (string.IsNullOrWhiteSpace(nombre) || nombre == "Ingrese nombre")
+            if (string.IsNullOrWhiteSpace(filtroActual) || filtroActual == "Ingrese nombre")
             {
-                CargarTodos();
+                filtroActual = "";
+                CargarPagina(currentPage);
             }
             else
             {
-                List<EntidadProduct> productosFiltrados = negocio.ObtenerProductosPorNombre(nombre);
-                dgProductos.ItemsSource = productosFiltrados;
+                CargarPagina(currentPage); // con filtro
             }
         }
 
@@ -54,7 +80,18 @@ namespace CapaPresentacion
             var ventana = new InsertarProductoWindow();
             if (ventana.ShowDialog() == true)
             {
-                CargarTodos();
+                productos.Clear();
+                currentPage = 1;
+                filtroActual = "";
+                CargarPagina(currentPage);
+            }
+        }
+
+        private void dgProductos_ScrollChanged(object sender, ScrollChangedEventArgs e)
+        {
+            if (e.VerticalOffset + e.ViewportHeight >= e.ExtentHeight - 10 && !isLoading && string.IsNullOrWhiteSpace(filtroActual))
+            {
+                CargarPagina(currentPage);
             }
         }
 

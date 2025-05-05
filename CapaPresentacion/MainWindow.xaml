@@ -30,16 +30,19 @@
                     Click="BtnRegistrarProducto_Click"/>
         </StackPanel>
 
-        <DataGrid x:Name="dgProductos"
-                  Grid.Row="1"
-                  AutoGenerateColumns="False"
-                  IsReadOnly="True">
-            <DataGrid.Columns>
-                <DataGridTextColumn Header="ProductId" Binding="{Binding ProductId}" />
-                <DataGridTextColumn Header="Name" Binding="{Binding Name}" />
-                <DataGridTextColumn Header="Price" Binding="{Binding Price}" />
-                <DataGridTextColumn Header="Stock" Binding="{Binding Stock}" />
-            </DataGrid.Columns>
-        </DataGrid>
+        <ScrollViewer VerticalScrollBarVisibility="Auto" Grid.Row="1">
+            <DataGrid x:Name="dgProductos"
+                      AutoGenerateColumns="False"
+                      IsReadOnly="True"
+                      Height="350"
+                      ScrollViewer.ScrollChanged="dgProductos_ScrollChanged">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="ProductId" Binding="{Binding ProductId}" />
+                    <DataGridTextColumn Header="Name" Binding="{Binding Name}" />
+                    <DataGridTextColumn Header="Price" Binding="{Binding Price}" />
+                    <DataGridTextColumn Header="Stock" Binding="{Binding Stock}" />
+                </DataGrid.Columns>
+            </DataGrid>
+        </ScrollViewer>
     </Grid>
 </Window>
