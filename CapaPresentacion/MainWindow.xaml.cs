@@ -77,7 +77,7 @@ namespace CapaPresentacion
 
         private void BtnRegistrarProducto_Click(object sender, RoutedEventArgs e)
         {
-            var ventana = new InsertarProductoWindow();
+            var ventana = new ProductoFormularioWindow();
             if (ventana.ShowDialog() == true)
             {
                 productos.Clear();
@@ -112,5 +112,50 @@ namespace CapaPresentacion
                 txtBuscar.Foreground = Brushes.Gray;
             }
         }
+
+        private void BtnActualizarProducto_Click(object sender, RoutedEventArgs e)
+        {
+            if (dgProductos.SelectedItem is EntidadProduct seleccionado)
+            {
+                var ventana = new ActualizarProductoWindow(seleccionado);
+                if (ventana.ShowDialog() == true)
+                {
+                    productos.Clear();
+                    currentPage = 1;
+                    filtroActual = "";
+                    CargarPagina(currentPage);
+                }
+            }
+            else
+            {
+                MessageBox.Show("⚠️ Selecciona un producto para actualizar.", "Aviso", MessageBoxButton.OK, MessageBoxImage.Warning);
+            }
+        }
+
+        private void BtnEliminarProducto_Click(object sender, RoutedEventArgs e)
+        {
+            if (dgProductos.SelectedItem is EntidadProduct seleccionado)
+            {
+                var confirmacion = MessageBox.Show($"¿Seguro que deseas eliminar el producto '{seleccionado.Name}'?",
+                                                   "Confirmar eliminación",
+                                                   MessageBoxButton.YesNo,
+                                                   MessageBoxImage.Warning);
+
+                if (confirmacion == MessageBoxResult.Yes)
+                {
+                    negocio.EliminarProductoLogico(seleccionado.ProductId);
+                    MessageBox.Show("✅ Producto eliminado correctamente", "Éxito", MessageBoxButton.OK, MessageBoxImage.Information);
+                    productos.Clear();
+                    currentPage = 1;
+                    filtroActual = "";
+                    CargarPagina(currentPage);
+                }
+            }
+            else
+            {
+                MessageBox.Show("⚠️ Selecciona un producto para eliminar.", "Aviso", MessageBoxButton.OK, MessageBoxImage.Warning);
+            }
+        }
+
     }
 }

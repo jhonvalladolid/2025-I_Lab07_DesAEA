@@ -19,11 +19,11 @@ namespace CapaPresentacion
     /// <summary>
     /// Lógica de interacción para InsertarProductoWindow.xaml
     /// </summary>
-    public partial class InsertarProductoWindow : Window
+    public partial class ProductoFormularioWindow : Window
     {
         private readonly NegocioProduct negocio = new NegocioProduct();
 
-        public InsertarProductoWindow()
+        public ProductoFormularioWindow()
         {
             InitializeComponent();
         }

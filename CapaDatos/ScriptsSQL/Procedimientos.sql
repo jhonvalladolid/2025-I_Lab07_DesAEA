@@ -79,3 +79,28 @@ BEGIN
     FETCH NEXT @PageSize ROWS ONLY;
 END;
 GO
+
+CREATE OR ALTER PROCEDURE USP_ActualizarProducto
+    @ProductId INT,
+    @Name NVARCHAR(255),
+    @Price DECIMAL(10,2),
+    @Stock INT
+AS
+BEGIN
+    UPDATE products
+    SET name = @Name,
+        price = @Price,
+        stock = @Stock
+    WHERE product_id = @ProductId AND active = 1
+END
+GO
+
+CREATE OR ALTER PROCEDURE USP_EliminarProductoLogico
+    @ProductId INT
+AS
+BEGIN
+    UPDATE products
+    SET active = 0
+    WHERE product_id = @ProductId AND active = 1;
+END;
+GO

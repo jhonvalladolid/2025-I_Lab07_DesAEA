@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CapaPresentacion"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="450" Width="850">
     <Grid Margin="10">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -14,20 +14,28 @@
 
         <StackPanel Orientation="Horizontal" Margin="0 0 0 10" Grid.Row="0">
             <TextBox x:Name="txtBuscar"
-                     Width="200"
-                     Height="30"
-                     Text="Ingrese nombre"
-                     Foreground="Gray"
-                     GotFocus="txtBuscar_GotFocus"
-                     LostFocus="txtBuscar_LostFocus"
-                     Margin="0 0 10 0"/>
+             Width="200"
+             Height="30"
+             Text="Ingrese nombre"
+             Foreground="Gray"
+             GotFocus="txtBuscar_GotFocus"
+             LostFocus="txtBuscar_LostFocus"
+             Margin="0 0 10 0"/>
             <Button Content="Buscar"
-                    Width="100"
-                    Margin="0 0 10 0"
-                    Click="BtnBuscar_Click"/>
+            Width="100"
+            Margin="0 0 10 0"
+            Click="BtnBuscar_Click"/>
             <Button Content="Registrar Producto"
-                    Width="150"
-                    Click="BtnRegistrarProducto_Click"/>
+            Width="150"
+            Margin="0 0 10 0"
+            Click="BtnRegistrarProducto_Click"/>
+            <Button Content="Actualizar Producto"
+            Width="150"
+            Margin="0 0 10 0"
+            Click="BtnActualizarProducto_Click"/>
+            <Button Content="Eliminar Producto"
+            Width="150"
+            Click="BtnEliminarProducto_Click"/>
         </StackPanel>
 
         <ScrollViewer VerticalScrollBarVisibility="Auto" Grid.Row="1">

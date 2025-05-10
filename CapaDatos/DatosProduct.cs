@@ -11,8 +11,8 @@ namespace CapaDatos
 {
     public class DatosProduct
     {
-        private readonly string connectionString = "Data Source=LAPTOP-DELL;Initial Catalog=Lab07DB;User ID=userJhon;Password=Tecsup00;TrustServerCertificate=True;";
-        //private readonly string connectionString = "Data Source=LAB411-005\\SQLEXPRESS;Initial Catalog=Lab07DB;Integrated Security=True;TrustServerCertificate=True";
+        //private readonly string connectionString = "Data Source=LAPTOP-DELL;Initial Catalog=Lab07DB;User ID=userJhon;Password=Tecsup00;TrustServerCertificate=True;";
+        private readonly string connectionString = "Data Source=LAB411-005\\SQLEXPRESS;Initial Catalog=Lab08DB;Integrated Security=True;TrustServerCertificate=True";
         //private readonly string connectionString = "Data Source=LAB411-003\\SQLEXPRESS;Initial Catalog=Lab07DB;User ID=userJhon;Password=Tecsup00;TrustServerCertificate=True;";
 
         public List<EntidadProduct> ObtenerProducts()
@@ -84,5 +84,33 @@ namespace CapaDatos
             }
         }
 
+        public void ActualizarProducto(EntidadProduct producto)
+        {
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            using (SqlCommand cmd = new SqlCommand("USP_ActualizarProducto", conn))
+            {
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@ProductId", producto.ProductId);
+                cmd.Parameters.AddWithValue("@Name", producto.Name);
+                cmd.Parameters.AddWithValue("@Price", producto.Price);
+                cmd.Parameters.AddWithValue("@Stock", producto.Stock);
+
+                conn.Open();
+                cmd.ExecuteNonQuery();
+            }
+        }
+
+        public void EliminarProductoLogico(int productId)
+        {
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            using (SqlCommand cmd = new SqlCommand("USP_EliminarProductoLogico", conn))
+            {
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@ProductId", productId);
+
+                conn.Open();
+                cmd.ExecuteNonQuery();
+            }
+        }
     }
 }

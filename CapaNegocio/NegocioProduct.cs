@@ -40,5 +40,16 @@ namespace CapaNegocio
             datos.RegistrarProducto(producto);
         }
 
+        public void ActualizarProducto(EntidadProduct producto)
+        {
+            DatosProduct datos = new DatosProduct();
+            datos.ActualizarProducto(producto);
+        }
+
+        public void EliminarProductoLogico(int productId)
+        {
+            DatosProduct datos = new DatosProduct();
+            datos.EliminarProductoLogico(productId);
+        }
     }
 }
